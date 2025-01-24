@@ -24,4 +24,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: docker://ghcr.io/semantic-release/semantic-release
+        uses: docker://ghcr.io/cmgrayb/semantic-release
