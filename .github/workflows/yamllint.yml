@@ -1,0 +1,22 @@
+name: yamllint
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run yamllint
+        uses: docker://ghcr.io/cmgrayb/yamllint
+        with:
+          args: "."
