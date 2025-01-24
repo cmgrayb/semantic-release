@@ -16,9 +16,9 @@ RUN set -eux \
     @semantic-release/git@${VERSION} \
     @semantic-release/exec@${VERSION} \
 	&& npm cache clean --force
-LABEL org.opencontainers.image.licenses MIT
-LABEL org.opencontainers.image.ref.name semantic-release ${VERSION}
-LABEL org.opencontainers.image.title semantic-release ${VERSION}
-LABEL org.opencontainers.image.description semantic-release ${VERSION}
+LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.ref.name="semantic-release ${VERSION}"
+LABEL org.opencontainers.image.title="semantic-release ${VERSION}"
+LABEL org.opencontainers.image.description="semantic-release ${VERSION}"
 ENTRYPOINT ["npx", "semantic-release"]
 CMD ["--help"]
