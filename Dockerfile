@@ -9,6 +9,7 @@ RUN set -eux \
 FROM builder AS default
 ARG VERSION="latest"
 RUN set -eux \
+    && npm install -g npm@11.0.0 \
     && npm install -D -g \
     semantic-release@${VERSION} \
     @semantic-release/changelog@${VERSION} \
