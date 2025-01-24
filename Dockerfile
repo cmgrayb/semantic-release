@@ -1,13 +1,10 @@
-FROM node:23-bullseye-slim AS builder
+FROM node:23.3.0-alpine3.19 AS builder
 
 RUN set -eux \
-	&& apt-get update \
-    && apt-get install \
-    -y \
-    --no-install-recommends \
-    git-core \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+	&& apk update \
+    && apk add --no-cache \
+    git \
+    ca-certificates
 
 FROM builder AS default
 ARG VERSION="latest"
