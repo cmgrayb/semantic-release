@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build a Docker image
-        run: docker build -t cmgrayb/yamllint .
+        run: docker build -t cmgrayb/semantic-release .
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         # Snyk can be used to break the build when it detects vulnerabilities.
