@@ -7,10 +7,10 @@ jobs:
       - name: Get uuid
         id: uuid
         run: |
-          echo "::set-output name=uuid::$(uuidgen)"
+          echo "$(uuidgen)" >> $TEMP_CONTAINER_UUID
       - uses: actions/checkout@v2
       - name: Build a Docker image
-        run: docker build -t docker.io/${{ steps.uuid.outputs.uuid }} .
+        run: docker build -t docker.io/$TEMP_CONTAINER_UUID .
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         # Snyk can be used to break the build when it detects vulnerabilities.
@@ -23,7 +23,7 @@ jobs:
           # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: docker.io/${{ steps.uuid.outputs.uuid }}
+          image: docker.io/$TEMP_CONTAINER_UUID
           args: --file=Dockerfile
       - name: Upload Snyk scan results to GitHub Code Scanning
         if: success() && steps.snyk_scan.outputs.sarif_file == 'snyk.sarif'
