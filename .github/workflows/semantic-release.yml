@@ -1,20 +1,20 @@
 name: Release
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - main
 
 permissions:
-  contents: read # for checkout
+  contents: read  # for checkout
 
 jobs:
   release:
     name: Release
     permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
+      contents: write  # to be able to publish a GitHub release
+      issues: write  # to be able to comment on released issues
+      pull-requests: write  # to be able to comment on released pull requests
+      id-token: write  # to enable use of OIDC for npm provenance
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,4 +23,3 @@ jobs:
         uses: docker://ghcr.io/cmgrayb/semantic-release -r ${{ github.repositoryUrl }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
