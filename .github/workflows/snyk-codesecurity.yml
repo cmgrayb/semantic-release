@@ -4,9 +4,13 @@ jobs:
   snyk:
     runs-on: ubuntu-latest
     steps:
+      - name: Get uuid
+        id: uuid
+        run: |
+          echo "::set-output name=uuid::$(uuidgen)"
       - uses: actions/checkout@v2
       - name: Build a Docker image
-        run: docker build -t cmgrayb/yamllint .
+        run: docker build -t ${{ steps.uuid.outputs }} .
       - name: Run Snyk to check Docker image for vulnerabilities
         id: snyk_scan
         # Snyk can be used to break the build when it detects vulnerabilities.
@@ -19,7 +23,7 @@ jobs:
           # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: cmgrayb/yamllint
+          image: ${{ steps.uuid.outputs }}
           args: --file=Dockerfile
       - name: Upload Snyk scan results to GitHub Code Scanning
         if: success() && steps.snyk_scan.outputs.sarif_file == 'snyk.sarif'
