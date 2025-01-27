@@ -7,7 +7,7 @@ jobs:
       - name: Get uuid
         id: uuid
         run: |
-          echo "$(uuidgen)" >> $TEMP_CONTAINER_UUID
+          echo "TEMP_CONTAINER_UUID=$(uuidgen)" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Build a Docker image
         run: docker build -t docker.io/$TEMP_CONTAINER_UUID .
